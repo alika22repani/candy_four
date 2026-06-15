@@ -172,4 +172,6 @@ if __name__ == '__main__':
     print("   - POST /api/games  (simpan game)")
     print("   - GET  /api/stats  (lihat statistik)")
     print("=" * 50)
-    app.run(debug=True, port=5000)
+   
+    port = int(os.environ.get('PORT', 5000))  # Railway kasih PORT otomatis
+    app.run(host='0.0.0.0', port=port, debug=False)
