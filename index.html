@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Candy Connect Four - Adversarial Game</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="game-wrapper">
+        <!-- MODAL PILIH MODE -->
+        <div id="modeModal" class="modal">
+            <div class="modal-card">
+                <h1>🍬 CANDY <br> CONNECT FOUR 🍭</h1>
+                <p>Pilih mode bermain</p>
+                <button id="modeAI" class="mode-btn ai-btn">🤖 vs AI</button>
+                <button id="modeHuman" class="mode-btn human-btn">👥 vs Human</button>
+            </div>
+        </div>
+
+        <!-- KONTEN GAME UTAMA -->
+        <div id="gameContainer" class="game-container hidden">
+            <!-- Header atas dengan timer -->
+            <div class="game-header">
+                <div class="timer-box">
+                    <span class="timer-icon">⏱️</span>
+                    <span id="timerDisplay" class="timer-text">00:00</span>
+                </div>
+                <div class="status-badge" id="topStatus">
+                    <span>🎮 GAME ON</span>
+                </div>
+            </div>
+
+            <!-- Dua pemain dengan win counter -->
+            <div class="players-panel">
+                <div class="player-card" id="player1Card">
+                    <div class="player-avatar">🍬</div>
+                    <div class="player-name">PLAYER 1</div>
+                    <div class="player-win">
+                        <span class="win-label">WIN</span>
+                        <span class="win-count" id="player1Wins">0</span>
+                    </div>
+                    <div class="player-turn-indicator" id="player1Turn"></div>
+                </div>
+
+                <div class="vs-divider">VS</div>
+
+                <div class="player-card" id="player2Card">
+                    <div class="player-avatar">🤖</div>
+                    <div class="player-name" id="player2Name">COMPUTER</div>
+                    <div class="player-win">
+                        <span class="win-label">WIN</span>
+                        <span class="win-count" id="player2Wins">0</span>
+                    </div>
+                    <div class="player-turn-indicator" id="player2Turn"></div>
+                </div>
+            </div>
+
+            <!-- PAPAN PERMAINAN DI TENGAH -->
+            <div class="board-container">
+                <div id="board" class="board"></div>
+            </div>
+
+            <!-- Footer status & kontrol -->
+            <div class="game-footer">
+                <div class="turn-status" id="turnStatus">🍬 Your turn</div>
+                <div class="game-controls">
+                    <div class="ai-controls" id="aiControls">
+                        <div class="control-item">
+                            <label>🎯 Depth</label>
+                            <input type="range" id="depthSlider" min="1" max="5" value="3">
+                            <span id="depthVal" class="depth-val">3</span>
+                        </div>
+                        <div class="control-item">
+                            <label>⚡ Mode</label>
+                            <select id="algorithmSelect">
+                                <option value="minimax">Minimax</option>
+                                <option value="alphabeta" selected>Alpha-Beta</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button id="resetBtn" class="ctrl-btn reset-btn">🔄 Reset</button>
+                    <button id="menuBtn" class="ctrl-btn menu-btn">🏠 Menu</button>
+                    <button id="viewTreeBtn" class="ctrl-btn tree-btn">🌳 Lihat Game Tree</button>
+                </div>
+                <div class="node-stats">
+                    <span>🔍 Node Evaluated: <strong id="nodeCount">0</strong></span>
+                </div>
+            </div>
+
+            <!-- ========== VISUALISASI GAME TREE ========== -->
+            <div class="tree-section" id="treeSection" style="display: none;">
+                <div class="tree-header">
+                    <h3>🌳 GAME TREE VISUALIZATION (Depth 3)</h3>
+                    <button id="closeTreeBtn" class="close-tree-btn">✖</button>
+                </div>
+                <div id="gameTreeVisual" class="game-tree-visual">
+                    <div class="tree-placeholder">Klik "Lihat Game Tree" untuk menampilkan</div>
+                </div>
+            </div>
+            <!-- ========== END VISUALISASI GAME TREE ========== -->
+
+            <!-- ========== RIWAYAT GAME (BACKEND) ========== -->
+            <div class="history-section" id="historySection">
+                <div class="history-header">
+                    <h3>📜 RIWAYAT GAME</h3>
+                    <button id="refreshHistoryBtn" class="refresh-history-btn">🔄</button>
+                </div>
+                <div id="gameHistoryList" class="history-list">
+                    <div class="history-empty">Belum ada riwayat. Main dulu yuk!</div>
+                </div>
+            </div>
+
+            <!-- ========== STATISTIK RINGKAS ========== -->
+            <div class="stats-summary" id="statsSummary">
+                <div class="stat-summary-item">
+                    <span>🏆 Total Game</span>
+                    <strong id="totalGames">0</strong>
+                </div>
+                <div class="stat-summary-item">
+                    <span>🍬 Player Win</span>
+                    <strong id="playerWinCount">0</strong>
+                </div>
+                <div class="stat-summary-item">
+                    <span>🤖 AI/Player2 Win</span>
+                    <strong id="aiWinCount">0</strong>
+                </div>
+                <div class="stat-summary-item">
+                    <span>🤝 Draw</span>
+                    <strong id="drawCount">0</strong>
+                </div>
+            </div>
+            <!-- ========== END RIWAYAT & STATISTIK ========== -->
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
