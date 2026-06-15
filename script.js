@@ -10,7 +10,7 @@ let player1Wins = 0;
 let player2Wins = 0;
 
 // Backend configuration
-const BACKEND_URL = "http://localhost:5000";  // Ganti nanti kalo sudah deploy
+const BACKEND_URL = "https://candyfour-production.up.railway.app";
 
 // DOM Elements
 let modeModal, gameContainer, boardDiv;
