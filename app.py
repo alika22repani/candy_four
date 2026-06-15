@@ -1,10 +1,10 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import sqlite3
 import os
 from datetime import datetime
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='.', static_url_path='')
 CORS(app)  # Biar frontend bisa akses backend dari localhost
 
 # Konfigurasi database
@@ -41,17 +41,7 @@ init_db()
 
 @app.route('/')
 def home():
-    """Halaman utama API (cek apakah backend jalan)"""
-    return jsonify({
-        'message': '🎮 Candy Connect Four API is running!',
-        'status': 'active',
-        'endpoints': {
-            'GET /api/games': 'Ambil semua riwayat game',
-            'POST /api/games': 'Simpan hasil game baru',
-            'DELETE /api/games/<id>': 'Hapus riwayat tertentu',
-            'GET /api/stats': 'Ambil statistik ringkas'
-        }
-    })
+    return send_from_directory('.', 'index.html')
 
 @app.route('/api/games', methods=['GET'])
 def get_games():
